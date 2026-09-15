@@ -1,12 +1,27 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from './pages/Home';
+import Movies from './pages/Movies';
+import Watchlist from './pages/Watchlist';
+import Profile from './pages/Profile';
+import Navbar from './components/common/Navbar';
+
 const App = () => {
   return (
-    <div className="min-h-screen ">
-      <h1 className='pt-20 text-center text-4xl font-bold'>NodePlex</h1>
+    <BrowserRouter>
+      <div className="min-h-screen">
 
-      <p className="mt-3 text-center text-gray-400">
-        Discover your favourite movie
-      </p>
-    </div>
+        <Navbar />
+
+        <main>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/movies' element={<Movies />} />
+            <Route path='/watchlist' element={<Watchlist />} />
+            <Route path='/profile' element={<Profile />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 };
 
