@@ -4,7 +4,7 @@ import { FaFilm, FaSearch, FaUser } from 'react-icons/fa'
 const Navbar = () => {
     const navLinkClass = ({ isActive }) => `transition ${isActive ? 'font-semibold text-red-500' : 'text-gray-300 hover:text-white'}`
     return (
-        <nav className="border-b border-gray-700 px-6 py-4">
+        <nav className="sticky top-0 z-50 border-b border-gray-700 px-6 py-4 bg-black">
             <div className="mx-auto flex max-w-7xl items-center justify-between">
                 <Link to="/" className="flex items-center gap-2">
                     <FaFilm className="text-red-500 text-2xl" />

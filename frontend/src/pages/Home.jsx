@@ -1,9 +1,17 @@
+import MovieSection from "../components/movies/MovieSection";
+import movies from "../utils/movieData";
 
 const Home = () => {
     return (
         <div className="px-6 py-10">
-            <h1 className="text-3xl font-bold">Welcome to NodePlex</h1>
-            <p className="mt-2 text-gray-400">Discover movies you'll love</p>
+            <MovieSection
+                title="Trending Now"
+                movies={movies.slice(0, 6)} />
+                
+            <MovieSection
+                title="Popular Movies"
+                movies={[...movies].reverse()} />
+
         </div>
     );
 };
