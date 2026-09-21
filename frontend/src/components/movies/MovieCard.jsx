@@ -1,15 +1,15 @@
-import { FaStar } from "react-icons/fa";
+import { FaCalendarAlt, FaStar } from "react-icons/fa";
 
 const MovieCard = ({ movie }) => {
     return (
-      <div className="group overflow-hidden rounded-lg bg-slate-900 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="group overflow-hidden rounded-lg bg-slate-900 transition duration-300 hover:-translate-y-2 hover:shadow-xl">
       
       {/* Poster */}
       <div className="relative aspect-2/3 overflow-hidden">
         <img
           src={movie.image}
           alt={movie.title}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
         />
 
         {/* Rating */}
@@ -26,7 +26,7 @@ const MovieCard = ({ movie }) => {
         </h3>
 
         <div className="mt-1 flex justify-between text-sm text-gray-400">
-          <span>{movie.year}</span>
+          <span className="flex gap-1"><FaCalendarAlt /> {movie.year}</span>
           <span>{movie.genre}</span>
         </div>
       </div>
