@@ -20,4 +20,17 @@ const getPopularMovies = async () => {
     return response.data.results
 }
 
-module.exports = { getTrendingMovies, getPopularMovies }
+const searchMovies = async (query) => {
+    const response = await tmdbApi.get("/search/movie", {
+        params: {
+            query: query
+        }
+    })
+    return response.data.results
+}
+
+module.exports = {
+    getTrendingMovies,
+    getPopularMovies,
+    searchMovies
+}
