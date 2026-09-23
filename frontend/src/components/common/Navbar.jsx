@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
-import { FaFilm, FaSearch, FaUser } from 'react-icons/fa'
+import { FaFilm, FaUser } from 'react-icons/fa'
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
     const navLinkClass = ({ isActive }) => `transition ${isActive ? 'font-semibold text-red-500' : 'text-gray-300 hover:text-white'}`
@@ -24,9 +25,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <button className="text-gray-300 transition hover:text-white">
-                        <FaSearch />
-                    </button>
+                    <SearchBar />
 
                     <NavLink to="/profile" className={navLinkClass}>
                         <FaUser className="text-xl" />
