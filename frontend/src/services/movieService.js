@@ -11,3 +11,14 @@ export const getPopularMovies = async () => {
 
     return response.data.movies
 }
+
+export const searchMovies = async (query) => {
+    const response = await api.get("/movies/search", {
+        params: {
+            query
+        }
+    })
+
+    return response.data.movies
+
+}
