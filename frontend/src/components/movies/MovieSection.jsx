@@ -1,6 +1,6 @@
 import MovieCard from "./MovieCard";
 
-const MovieSection = ({ title, movies }) => {
+const MovieSection = ({ title, movies = { movies } }) => {
     return (
         <div className="px-6 py-8">
 
