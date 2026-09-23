@@ -3,7 +3,7 @@ import { FaCalendarAlt, FaStar } from "react-icons/fa";
 const MovieCard = ({ movie }) => {
 
   const posterURL = movie.poster_path
-    ? `https://image.tndb.org/t/p/w500${movie.poster_path}`
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : "No Image"
 
   const year = movie.release_date
