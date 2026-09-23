@@ -9,16 +9,16 @@ const SearchBar = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const searchText=query.trim()
+        const searchText = query.trim()
 
-        if(!searchText){
+        if (!searchText) {
             return
         }
 
         navigate(`/search?query=${encodeURIComponent(searchText)}`)
     }
     return (
-        <div>
+        <>
             <form
                 onSubmit={handleSubmit}
                 className="flex w-full max-w-sm items-center overflow-hidden rounded-md border border-gray-600 bg-[#181818]"
@@ -40,7 +40,7 @@ const SearchBar = () => {
 
             </form>
 
-        </div>
+        </>
     );
 };
 
