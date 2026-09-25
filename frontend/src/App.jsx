@@ -4,6 +4,7 @@ import Movies from './pages/Movies';
 import Watchlist from './pages/Watchlist';
 import Profile from './pages/Profile';
 import Navbar from './components/common/Navbar';
+import Search from './pages/Search';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Route path='/movies' element={<Movies />} />
             <Route path='/watchlist' element={<Watchlist />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/search' element={<Search />} />
           </Routes>
         </main>
       </div>
