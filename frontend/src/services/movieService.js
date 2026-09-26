@@ -22,3 +22,9 @@ export const searchMovies = async (query) => {
     return response.data.movies
 
 }
+
+export const getMovieDetails = async (movieId) => {
+    const response = await api.get(`/movies/${movieId}`)
+
+    return response.data.movie
+}
