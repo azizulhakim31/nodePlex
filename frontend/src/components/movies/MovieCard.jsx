@@ -1,4 +1,5 @@
 import { FaCalendarAlt, FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom"
 
 const MovieCard = ({ movie }) => {
 
@@ -11,7 +12,10 @@ const MovieCard = ({ movie }) => {
     : "N/A"
 
   return (
-    <div className="group overflow-hidden rounded-lg bg-slate-900 transition duration-300 hover:-translate-y-2 hover:shadow-xl">
+    <Link
+      to={`/movies/${movie.id}`}
+      className="group block overflow-hidden rounded-lg bg-slate-900 transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+    >
 
       {/* Poster */}
       <div className="relative aspect-2/3 overflow-hidden">
@@ -24,7 +28,7 @@ const MovieCard = ({ movie }) => {
         {/* Rating */}
         <div className="absolute right-2 top-2 flex items-center gap-1 rounded bg-black/80 px-2 py-1 text-xs">
           <FaStar className="text-yellow-400" />
-          <span>{movie.vote_average}</span>
+          <span>{movie.vote_average?.toFixed(1)}</span>
         </div>
       </div>
 
@@ -34,13 +38,13 @@ const MovieCard = ({ movie }) => {
           {movie.title}
         </h3>
 
-        <div className="mt-1 flex justify-between text-sm text-gray-400">
+        <div className="mt-1 flex gap-1 justify-between text-sm text-gray-400">
           <span className="flex gap-1"><FaCalendarAlt /> {year}</span>
           <span>{movie.title}</span>
         </div>
       </div>
 
-    </div>
+    </Link>
   );
 };
 

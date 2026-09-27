@@ -5,6 +5,7 @@ import Watchlist from './pages/Watchlist';
 import Profile from './pages/Profile';
 import Navbar from './components/common/Navbar';
 import Search from './pages/Search';
+import MovieDetails from './pages/MovieDetails';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/movies' element={<Movies />} />
+            <Route path='/movies/:id' element={<MovieDetails />} />
             <Route path='/watchlist' element={<Watchlist />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/search' element={<Search />} />
