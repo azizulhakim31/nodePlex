@@ -82,19 +82,19 @@ function MovieDetails() {
 
             <div className="absolute inset-0 h-150 bg-linear-to-b from-black/50 via-black/80 to-[#0f0f0f]" />
 
-            <div className="relative mx-auto max-w-7xl px-6 py-10">
+            <div className="relative mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
 
                 <Link
                     to="/"
-                    className="mb-10 inline-flex items-center gap-2 text-gray-300 transition hover:text-white"
+                    className="mb-6 inline-flex items-center gap-2 text-gray-300 transition hover:text-white sm:mb-10"
                 >
                     <FaArrowLeft />
                     Back
                 </Link>
 
-                <div className="grid gap-8 pt-20 md:grid-cols-[280px_1fr]">
+                <div className="grid min-w-0 gap-6 pt-8 md:grid-cols-[280px_minmax(0,1fr)] md:gap-8 md:pt-20">
 
-                    <div>
+                    <div className="mx-auto w-full max-w-55 md:max-w-none">
                         <img
                             src={posterUrl}
                             alt={movie.title}
@@ -102,9 +102,9 @@ function MovieDetails() {
                         />
                     </div>
 
-                    <div className="self-center">
+                    <div className="min-w-0 self-center">
 
-                        <h1 className="text-4xl font-bold md:text-5xl">
+                        <h1 className="wrap-break-words text-3xl font-bold sm:text-4xl md:text-5xl">
                             {movie.title}
                         </h1>
 
@@ -114,7 +114,7 @@ function MovieDetails() {
                             </p>
                         )}
 
-                        <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-gray-300">
+                        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-300 sm:mt-5">
 
                             <span className='flex gap-1'><FaCalendarAlt />{year}</span>
 
@@ -146,13 +146,13 @@ function MovieDetails() {
                             {movie.overview || 'No description available.'}
                         </p>
 
-                        <div className="mt-8 flex flex-wrap gap-3">
+                        <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
 
-                            <button className="rounded-md bg-red-600 px-6 py-3 font-semibold transition hover:bg-red-700">
+                            <button className="w-full rounded-md bg-red-600 px-6 py-3 font-semibold transition hover:bg-red-700 sm:w-auto">
                                 + Add to Watchlist
                             </button>
 
-                            <button className="rounded-md border border-gray-600 px-6 py-3 font-semibold transition hover:bg-white hover:text-black">
+                            <button className="w-full rounded-md border border-gray-600 px-6 py-3 font-semibold transition hover:bg-white hover:text-black sm:w-auto">
                                 Rate Movie
                             </button>
 
