@@ -6,6 +6,7 @@ import Profile from './pages/Profile';
 import Navbar from './components/common/Navbar';
 import Search from './pages/Search';
 import MovieDetails from './pages/MovieDetails';
+import Register from './pages/Register';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
             <Route path='/movies' element={<Movies />} />
             <Route path='/movies/:id' element={<MovieDetails />} />
             <Route path='/watchlist' element={<Watchlist />} />
+            <Route path='/register' element={<Register />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/search' element={<Search />} />
           </Routes>
