@@ -1,8 +1,8 @@
 import { FaFilm } from "react-icons/fa"
 const Register = () => {
     return (
-        <div>
-            <div className="w-full mx-w-md">
+        <div className="flex min-h-[calc(100vh-73px)] items-center justify-center px-6">
+            <div className="w-full max-w-md rounded-xl border border-gray-800 bg-[#181818] p-8">
                 <div className="mb-8 text-center">
                     <div className="mb-4 flex justify-center">
                         <FaFilm className="text-4xl text-red-500" />
@@ -17,14 +17,14 @@ const Register = () => {
                     </p>
                 </div>
 
-                <form action="">
+                <form className="space-y-5">
                     <div>
                         <label className="mb-2 block text-sm text-gray-300">Name</label>
 
                         <input
                             type="text"
                             placeholder="Your Name"
-                            className="w-full rounded-md border border-gray-700 bg-[#111]px-4 py-3 text-white outline-none transition focus:border-red-500 mb-2"
+                            className="w-full rounded-md border border-gray-700 bg-[#111] px-4 py-3 text-white outline-none transition focus:border-red-500"
                         />
                     </div>
                     <div>
@@ -33,7 +33,7 @@ const Register = () => {
                         <input
                             type="text"
                             placeholder="youremail@example.com"
-                            className="w-full rounded-md border border-gray-700 bg-[#111]px-4 py-3 text-white outline-none transition focus:border-red-500 mb-2"
+                            className="w-full rounded-md border border-gray-700 bg-[#111] px-4 py-3 text-white outline-none transition focus:border-red-500"
                         />
                     </div>
                     <div>
@@ -42,7 +42,7 @@ const Register = () => {
                         <input
                             type="password"
                             placeholder="At least 6 characters"
-                            className="w-full rounded-md border border-gray-700 bg-[#111]px-4 py-3 text-white outline-none transition focus:border-red-500 mb-2"
+                            className="w-full rounded-md border border-gray-700 bg-[#111] px-4 py-3 text-white outline-none transition focus:border-red-500"
                         />
                     </div>
 
