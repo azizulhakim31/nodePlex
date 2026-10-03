@@ -7,6 +7,7 @@ import Navbar from './components/common/Navbar';
 import Search from './pages/Search';
 import MovieDetails from './pages/MovieDetails';
 import Register from './pages/Register';
+import Signin from './pages/Signin';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             <Route path='/movies/:id' element={<MovieDetails />} />
             <Route path='/watchlist' element={<Watchlist />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/signin' element={<Signin />}/>
             <Route path='/profile' element={<Profile />} />
             <Route path='/search' element={<Search />} />
           </Routes>
