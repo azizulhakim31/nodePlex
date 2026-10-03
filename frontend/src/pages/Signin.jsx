@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { FaFilm } from 'react-icons/fa'
 
 const Login = () => {
@@ -56,6 +57,16 @@ const Login = () => {
                     </button>
 
                 </form>
+
+                <p className="mt-6 text-center text-sm text-gray-400">
+                    Don't have an account?{' '}
+                    <Link
+                        to="/register"
+                        className="text-red-500 hover:text-red-400"
+                    >
+                        Create one
+                    </Link>
+                </p>
 
             </div>
 

@@ -1,4 +1,5 @@
 import { FaFilm } from "react-icons/fa"
+import { Link } from "react-router-dom";
 const Register = () => {
     return (
         <div className="flex min-h-[calc(100vh-73px)] items-center justify-center px-6">
@@ -53,6 +54,17 @@ const Register = () => {
                         Create Account
                     </button>
                 </form>
+
+                  <p className="mt-6 text-center text-sm text-gray-400">
+                    Already have an account?{' '}
+                    <Link
+                        to="/signin"
+                        className="text-red-500 hover:text-red-400"
+                    >
+                        Sign in
+                    </Link>
+                </p>
+
             </div>
         </div>
     );
