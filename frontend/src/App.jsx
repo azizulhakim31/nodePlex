@@ -8,6 +8,7 @@ import Search from './pages/Search';
 import MovieDetails from './pages/MovieDetails';
 import Register from './pages/Register';
 import Signin from './pages/Signin';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 const App = () => {
   return (
@@ -23,9 +24,15 @@ const App = () => {
             <Route path='/movies/:id' element={<MovieDetails />} />
             <Route path='/watchlist' element={<Watchlist />} />
             <Route path='/register' element={<Register />} />
-            <Route path='/signin' element={<Signin />}/>
+            <Route path='/signin' element={<Signin />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/search' element={<Search />} />
+
+            <Route element={<ProtectedRoute />}>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/watchlist" element={<Watchlist />} />
+            </Route>
+
           </Routes>
         </main>
       </div>
