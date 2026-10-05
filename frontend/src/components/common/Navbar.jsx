@@ -36,11 +36,13 @@ const Navbar = () => {
                         Movies
                     </NavLink>
 
-                    <NavLink
-                        to="/watchlist"
-                        className={navLinkClass}>
-                        Watchlist
-                    </NavLink>
+                    {user && (
+                        <NavLink
+                            to="/watchlist"
+                            className={navLinkClass}>
+                            Watchlist
+                        </NavLink>
+                    )}
                 </div>
 
                 <div className="order-3 flex w-full min-w-0 items-center gap-3 sm:order-3 sm:w-64 sm:gap-6 md:w-80">
