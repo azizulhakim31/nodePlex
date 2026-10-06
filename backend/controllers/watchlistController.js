@@ -47,3 +47,30 @@ const addToWatchlist = async (req, res) => {
         })
     }
 }
+
+
+const getWatchlist = async (req, res) => {
+    try {
+        const movies = await Watchlist.find({
+            user: req.userId
+        }).sort({ createdAt: -1 })
+
+        res.json({
+            success: true,
+            movies
+        })
+    }
+    catch (error) {
+        console.error(error.message)
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch watchlist"
+        })
+    }
+}
+
+module.exports = {
+    addToWatchlist,
+    getWatchlist
+}
