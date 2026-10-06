@@ -70,7 +70,38 @@ const getWatchlist = async (req, res) => {
     }
 }
 
+const removeFromWatchlist = async (req, res) => {
+    try {
+        const { movieId } = req.params
+
+        const movie = await Watchlist.findOneAndDelete({
+            user: req.userId,
+            movieId: Number(movieId),
+        })
+
+        if (!movie) {
+            return res.status(404).json({
+                success: false,
+                message: 'Movie not found in watchlist',
+            })
+        }
+
+        res.json({
+            success: true,
+            message: 'Movie removed from watchlist',
+        })
+    } catch (error) {
+        console.error(error.message)
+
+        res.status(500).json({
+            success: false,
+            message: 'Failed to remove movie',
+        })
+    }
+}
+
 module.exports = {
     addToWatchlist,
-    getWatchlist
+    getWatchlist,
+    removeFromWatchlist
 }
