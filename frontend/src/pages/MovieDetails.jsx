@@ -1,17 +1,20 @@
-import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { addToWatchlist } from '../services/watchlistService'
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { FaArrowLeft, FaCalendarAlt, FaStar } from 'react-icons/fa'
 
 import { getMovieDetails } from '../services/movieService'
 
 function MovieDetails() {
     const { id } = useParams()
+    const { user } = useAuth()
+    const navigate = useNavigate()
 
     const [movie, setMovie] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [watchlistLoading, setWatchlistLoading] = useState(false)
+    const [watchlistMessage, setWatchlistMessage] = useState('')
     const [error, setError] = useState('')
 
     useEffect(() => {
@@ -59,6 +62,35 @@ function MovieDetails() {
                 </Link>
             </div>
         )
+    }
+
+    const handleAddToWatchlist = async () => {
+        if (!user) {
+            navigate('/login')
+            return
+        }
+
+        try {
+            setWatchlistLoading(true)
+            setWatchlistMessage('')
+
+            await addToWatchlist({
+                movieId: movie.id,
+                title: movie.title,
+                posterPath: movie.poster_path,
+                releaseDate: movie.release_date,
+                voteAverage: movie.vote_average,
+            })
+
+            setWatchlistMessage('Added to your watchlist!')
+        } catch (error) {
+            setWatchlistMessage(
+                error.response?.data?.message ||
+                'Failed to add movie'
+            )
+        } finally {
+            setWatchlistLoading(false)
+        }
     }
 
     const backdropUrl = movie.backdrop_path
@@ -151,9 +183,21 @@ function MovieDetails() {
 
                         <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
 
-                            <button className="w-full rounded-md bg-red-600 px-6 py-3 font-semibold transition hover:bg-red-700 sm:w-auto">
-                                + Add to Watchlist
+                            <button
+                                onClick={handleAddToWatchlist}
+                                disabled={watchlistLoading}
+                                className="rounded-md bg-red-600 px-5 py-3 font-semibold transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+                            >
+                                {watchlistLoading
+                                    ? 'Adding...'
+                                    : '+ Add to Watchlist'}
                             </button>
+
+                            {watchlistMessage && (
+                                <p className="mt-3 text-sm text-gray-400">
+                                    {watchlistMessage}
+                                </p>
+                            )}
 
                             <button className="w-full rounded-md border border-gray-600 px-6 py-3 font-semibold transition hover:bg-white hover:text-black sm:w-auto">
                                 Rate Movie
