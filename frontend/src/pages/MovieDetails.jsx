@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { useAuth } from '../context/AuthContext'
+import { addToWatchlist } from '../services/watchlistService'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { FaArrowLeft, FaCalendarAlt, FaStar } from 'react-icons/fa'
