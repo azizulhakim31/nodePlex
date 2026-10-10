@@ -193,17 +193,17 @@ function MovieDetails() {
                                     : '+ Add to Watchlist'}
                             </button>
 
-                            {watchlistMessage && (
-                                <p className="mt-3 text-sm text-gray-400">
-                                    {watchlistMessage}
-                                </p>
-                            )}
 
                             <button className="w-full rounded-md border border-gray-600 px-6 py-3 font-semibold transition hover:bg-white hover:text-black sm:w-auto">
                                 Rate Movie
                             </button>
 
                         </div>
+                            {watchlistMessage && (
+                                <p className="mt-3 text-sm text-gray-400">
+                                    {watchlistMessage}
+                                </p>
+                            )}
 
                     </div>
 
