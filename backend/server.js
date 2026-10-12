@@ -8,6 +8,7 @@ const movieRoutes = require("./routes/movieRoutes");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const watchlistRoutes = require("./routes/watchlistRoutes");
+const reviewRoutes = require("./routes/reviewRoutes")
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/api/movies", movieRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/watchlist", watchlistRoutes);
+app.use("/api/reviwes", reviewRoutes);
 
 const PORT = process.env.PORT;
 
