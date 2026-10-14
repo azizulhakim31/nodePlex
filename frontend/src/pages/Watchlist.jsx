@@ -7,7 +7,7 @@ import {
   removeFromWatchlist,
 } from '../services/watchlistService'
 
-function Watchlist() {
+const Watchlist = () => {
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -113,7 +113,7 @@ function Watchlist() {
                   className="group overflow-hidden rounded-lg bg-[#181818]"
                 >
                   <Link to={`/movies/${movie.movieId}`}>
-                    <div className="relative aspect-[2/3] overflow-hidden">
+                    <div className="relative aspect-2/3 overflow-hidden">
                       <img
                         src={posterUrl}
                         alt={movie.title}

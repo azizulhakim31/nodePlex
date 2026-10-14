@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { saveReview } from '../../services/reviewService'
 
-function ReviewForm({ movieId, onReviewSaved }) {
+const ReviewForm = ({ movieId, onReviewSaved }) => {
     const { user } = useAuth()
 
     const [rating, setRating] = useState('8')

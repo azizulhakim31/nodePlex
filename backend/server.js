@@ -27,7 +27,7 @@ app.use("/api/movies", movieRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/watchlist", watchlistRoutes);
-app.use("/api/reviwes", reviewRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 const PORT = process.env.PORT;
 

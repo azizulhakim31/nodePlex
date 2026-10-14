@@ -1,21 +1,29 @@
 import { useAuth } from '../context/AuthContext'
 import { addToWatchlist } from '../services/watchlistService'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { FaArrowLeft, FaCalendarAlt, FaStar } from 'react-icons/fa'
 
 import { getMovieDetails } from '../services/movieService'
+import ReviewForm from '../components/movies/ReviewForm'
+import ReviewList from '../components/movies/ReviewList'
 
-function MovieDetails() {
+const MovieDetails = () => {
     const { id } = useParams()
     const { user } = useAuth()
     const navigate = useNavigate()
+    const reviewSectionRef = useRef(null)
 
     const [movie, setMovie] = useState(null)
     const [loading, setLoading] = useState(true)
     const [watchlistLoading, setWatchlistLoading] = useState(false)
     const [watchlistMessage, setWatchlistMessage] = useState('')
     const [error, setError] = useState('')
+    const [reviewRefreshKey, setReviewRefreshKey] = useState(0)
+
+    const refreshReviews = async () => {
+        setReviewRefreshKey((current) => current + 1)
+    }
 
     useEffect(() => {
         const loadMovie = async () => {
@@ -194,22 +202,47 @@ function MovieDetails() {
                             </button>
 
 
-                            <button className="w-full rounded-md border border-gray-600 px-6 py-3 font-semibold transition hover:bg-white hover:text-black sm:w-auto">
+                            <button
+                                onClick={() => reviewSectionRef.current?.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start',
+                                })}
+                                className="w-full rounded-md border border-gray-600 px-6 py-3 font-semibold transition hover:bg-white hover:text-black sm:w-auto"
+                            >
                                 Rate Movie
                             </button>
 
                         </div>
-                            {watchlistMessage && (
-                                <p className="mt-3 text-sm text-gray-400">
-                                    {watchlistMessage}
-                                </p>
-                            )}
+                        {watchlistMessage && (
+                            <p className="mt-3 text-sm text-gray-400">
+                                {watchlistMessage}
+                            </p>
+                        )}
 
                     </div>
 
                 </div>
 
             </div>
+
+            <section
+                ref={reviewSectionRef}
+                className="mx-auto mt-12 max-w-7xl scroll-mt-6 px-6 pb-12"
+            >
+                <h2 className="mb-5 text-2xl font-bold">
+                    Rate This Movie
+                </h2>
+
+                <ReviewForm
+                    movieId={id}
+                    onReviewSaved={refreshReviews}
+                />
+
+                <ReviewList
+                    movieId={id}
+                    refreshKey={reviewRefreshKey}
+                />
+            </section>
 
         </main>
     )
