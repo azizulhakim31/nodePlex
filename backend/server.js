@@ -9,6 +9,7 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const watchlistRoutes = require("./routes/watchlistRoutes");
 const reviewRoutes = require("./routes/reviewRoutes")
+const dashboardRoutes = require("./routes/dashboardRoutes")
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/watchlist", watchlistRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/dashboard", dashboardRoutes)
 
 const PORT = process.env.PORT;
 
