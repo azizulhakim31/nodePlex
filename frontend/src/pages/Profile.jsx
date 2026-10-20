@@ -1,56 +1,97 @@
-import { FaUser } from 'react-icons/fa'
-import { useAuth } from '../context/AuthContext'
+import { useEffect, useState } from "react";
+
+import { FaBookmark, FaComment, FaStar } from "react-icons/fa"
 
 const Profile = () => {
-    const { user } = useAuth()
+    const [dashboard, setDashboard] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState("")
+
+    useEffect(() => {
+        let active = true
+
+        const loadDashboard = async () => {
+            try {
+                const data = await getDashboard()
+
+                if (active) {
+                    setDashboard(data)
+                }
+            }
+            catch (error) {
+                if (active) {
+                    setError(
+                        error.response?.data?.message || "Could not load your dashboard."
+                    )
+                }
+            }
+            finally {
+                if (active) {
+                    setLoading(false)
+                }
+            }
+        }
+
+        loadDashboard()
+
+        return () => {
+            active = false
+        }
+    }, [])
+
+    if (loading) {
+        return (
+            <div className="px-6 py-16 text-center text-gray-400">
+                Loading your dashboard...
+            </div>
+        )
+    }
+
+    if (error || !dashboard) {
+        return (
+            <div className="mx-auto max-w-3xl px-6 py-16 text-center">
+                <p className="text-red-400">
+                    {error || "Dashboard unavaiable."}
+                </p>
+                <button
+                    onClick={() => window.location.reload()}
+                    className="mt-5 rounded-md bg-red-600 px-5 py-2 font-semibold hover:bg-red-700">
+                    Try Again
+                </button>
+            </div>
+        )
+    }
+
+    const { user, watchlistCount, reviewCount, averageRating, reviews } = dashboard
+
+    const joinedDate = user.joinedAt ? new Date(user.joinedAt).toLocaleDateString(undefined, {
+        month: "long",
+        year: "numeric"
+    }) : "NodePlex member"
+
+    const stats = [
+        {
+            label: "Watchlist Movies",
+            value: watchlistCount,
+            icon: FaBookmark
+        },
+        {
+            label: "Reviews Written",
+            value: reviewCount,
+            icon: FaComment
+        },
+        {
+            label: "Average Rating",
+            value: `${averageRating}/10`,
+            icon: FaStar
+        },
+    ]
 
     return (
-        <div className="px-6 py-10">
-            <div className="mx-auto max-w-3xl">
+        <div>
 
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold">
-                        My Profile
-                    </h1>
-
-                    <p className="mt-2 text-gray-400">
-                        Manage your NodePlex account.
-                    </p>
-                </div>
-
-                <div className="rounded-xl border border-gray-800 bg-[#181818] p-8">
-
-                    <div className="mb-8 flex items-center gap-5">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-600">
-                            <FaUser className="text-2xl" />
-                        </div>
-
-                        <div>
-                            <h2 className="text-xl font-bold">
-                                {user?.name}
-                            </h2>
-
-                            <p className="text-gray-400">
-                                {user?.email}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="border-t border-gray-800 pt-6">
-                        <p className="text-sm text-gray-500">
-                            Account
-                        </p>
-
-                        <p className="mt-1 text-gray-300">
-                            NodePlex Member
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
         </div>
-    )
-}
+    );
+};
 
-export default Profile
+export default Profile;
