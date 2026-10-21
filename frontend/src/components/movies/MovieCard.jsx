@@ -5,7 +5,7 @@ const MovieCard = ({ movie }) => {
 
   const posterURL = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : "No Image"
+    : "No poster available"
 
   const year = movie.release_date
     ? movie.release_date.substring(0, 4)
@@ -22,6 +22,7 @@ const MovieCard = ({ movie }) => {
         <img
           src={posterURL}
           alt={movie.title}
+          loading="lazy"
           className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
         />
 
@@ -34,7 +35,7 @@ const MovieCard = ({ movie }) => {
 
       {/* Movie information */}
       <div className="p-3">
-        <h3 className="truncate font-semibold">
+        <h3 className="truncate font-semibold transition group-hover:text-red-400">
           {movie.title}
         </h3>
 
