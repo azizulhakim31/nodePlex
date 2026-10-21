@@ -1,9 +1,8 @@
 const Review = require('../models/Review')
-const { movieId, movieTitle, rating, comment } = req.body
 
 const createOrUpdateReview = async (req, res) => {
     try {
-        const { movieId, rating, comment } = req.body
+        const { movieId, movieTitle, rating, comment } = req.body
 
         const parsedMovieId = Number(movieId)
         const parsedRating = Number(rating)

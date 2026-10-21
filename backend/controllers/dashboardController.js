@@ -1,6 +1,7 @@
 const User = require("../models/User")
 const Watchlist = require("../models/Watchlist")
 const Review = require("../models/Review")
+const { getMovieDetails } = require("../services/tmdbService")
 
 const getDashboard = async (req, res) => {
     try {
@@ -11,9 +12,9 @@ const getDashboard = async (req, res) => {
                 user: req.userId
             }),
 
-            Review.find({
-                user: req.userId
-            }).select("movieId userName rating comment createdAt updatedAt").sort({ updatedAt: -1 })
+            Review.find({ user: req.userId })
+                .select("movieId movieTitle userName rating comment createdAt updatedAt")
+                .sort({ updatedAt: -1 })
         ])
 
         if (!user) {
@@ -22,6 +23,28 @@ const getDashboard = async (req, res) => {
                 message: "User not found"
             })
         }
+
+        const reviewsWithoutTitles = reviews.filter(
+            (review) => !review.movieTitle?.trim()
+        )
+
+        await Promise.all(
+            reviewsWithoutTitles.map(async (review) => {
+                const movie = await getMovieDetails(review.movieId)
+                const movieTitle = movie.title?.trim()
+
+                if (!movieTitle) {
+                    throw new Error(`Movie title not found for movie ${review.movieId}`)
+                }
+
+                await Review.updateOne(
+                    { _id: review._id },
+                    { $set: { movieTitle } },
+                    { timestamps: false }
+                )
+                review.movieTitle = movieTitle
+            })
+        )
 
         const averageRating = reviews.length ? Number(
             (

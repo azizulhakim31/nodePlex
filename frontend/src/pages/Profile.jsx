@@ -195,9 +195,11 @@ const Profile = () => {
                                     <div className="flex flex-wrap items-center justify-between gap-3">
                                         <Link
                                             to={`/movies/${review.movieId}`}
-                                            className="font-semibold transition hover:text-red-400"
+                                            className="font-bold transition hover:text-red-400"
                                         >
-                                            Movie #{review.movieId}
+                                            {review.movieTitle
+                                                ? review.movieTitle
+                                                : 'Title unavailable'}
                                         </Link>
 
                                         <span className="flex items-center gap-2 text-sm text-yellow-400">

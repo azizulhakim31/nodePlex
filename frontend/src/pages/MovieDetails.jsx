@@ -36,7 +36,9 @@ const MovieDetails = () => {
                 setMovie(data)
             } catch (error) {
                 console.error(error)
-                setError('Failed to load movie details.')
+                setError(
+                    error.response?.data?.message ||
+                    'Failed to load movie details. Please try again.')
             } finally {
                 setLoading(false)
             }
@@ -47,9 +49,9 @@ const MovieDetails = () => {
 
     if (loading) {
         return (
-            <div className="flex min-h-screen items-center justify-center">
-                <p className="text-gray-400">
-                    Loading movie...
+            <div className="flex min-h-[60vh] items-center justify-center">
+                <p className="animate-pulse text-lg text-gray-400">
+                    Loading movie details...
                 </p>
             </div>
         )
@@ -57,10 +59,21 @@ const MovieDetails = () => {
 
     if (error || !movie) {
         return (
-            <div className="flex min-h-screen flex-col items-center justify-center gap-4">
-                <p className="text-red-400">
-                    {error || 'Movie not found.'}
+            <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-4 text-center">
+                <h2 className='text-2xl font-bold'>
+                    Movie unavaiable
+                </h2>
+
+                <p className="text-gray-400">
+                    {error || 'We could not find this movie.'}
                 </p>
+
+                <button
+                    onClick={loadMovie}
+                    className='rounded-lg bg-red-600 px-5 py-2 font-semibold transition hover:bg-red-700'
+                >
+                    Try Again
+                </button>
 
                 <Link
                     to="/"
