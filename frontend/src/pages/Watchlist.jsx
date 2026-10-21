@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaStar, FaTrash } from 'react-icons/fa'
+import { ImFilm } from "react-icons/im";
+
 
 import {
   getWatchlist,
@@ -80,19 +82,21 @@ const Watchlist = () => {
         )}
 
         {movies.length === 0 ? (
-          <div className="rounded-xl border border-gray-800 bg-[#181818] px-6 py-16 text-center">
-            <h2 className="text-xl font-semibold">
+          <div className="empty-state">
+            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-500/10">
+              <span className="text-3xl"><ImFilm />
+              </span>
+            </div>
+
+            <h2 className="text-xl font-bold">
               Your watchlist is empty
             </h2>
 
-            <p className="mt-2 text-gray-400">
-              Start adding movies you want to watch.
+            <p className="mt-2 max-w-sm text-sm leading-6 text-gray-400">
+              Save movies you want to watch later and keep your next movie night organized.
             </p>
 
-            <Link
-              to="/movies"
-              className="mt-6 inline-block rounded-md bg-red-600 px-5 py-3 font-semibold transition hover:bg-red-700"
-            >
+            <Link to="/movies" className="primary-button mt-5">
               Explore Movies
             </Link>
           </div>

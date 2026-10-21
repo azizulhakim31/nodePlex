@@ -42,7 +42,7 @@ body {
   }
 
   .empty-state {
-    @apply flex min-h-52 flex-col items-center justify-center rounded-xl border border-dashed border-white/15 px-5 py-10 text-center;
+    @apply flex min-h-52 flex-col items-center justify-center rounded-xl bg-[#181818] border border-dashed border-white/15 px-5 py-10 text-center;
   }
 
 }
