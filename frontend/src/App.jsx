@@ -9,6 +9,7 @@ import MovieDetails from './pages/MovieDetails';
 import Register from './pages/Register';
 import Signin from './pages/Signin';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import Footer from './components/common/Footer';
 
 const App = () => {
   return (
@@ -33,6 +34,8 @@ const App = () => {
 
           </Routes>
         </main>
+
+        <Footer />
       </div>
     </BrowserRouter>
   );
