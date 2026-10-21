@@ -235,6 +235,7 @@ const MovieDetails = () => {
 
                 <ReviewForm
                     movieId={id}
+                    movieTitle={movie.title}
                     onReviewSaved={refreshReviews}
                 />
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { saveReview } from '../../services/reviewService'
 
-const ReviewForm = ({ movieId, onReviewSaved }) => {
+const ReviewForm = ({ movieId, movieTitle, onReviewSaved }) => {
     const { user } = useAuth()
 
     const [rating, setRating] = useState('8')
@@ -33,6 +33,7 @@ const ReviewForm = ({ movieId, onReviewSaved }) => {
         try {
             await saveReview({
                 movieId: Number(movieId),
+                movieTitle,
                 rating: Number(rating),
                 comment,
             })
