@@ -1,4 +1,5 @@
 const Review = require('../models/Review')
+const { movieId, movieTitle, rating, comment } = req.body
 
 const createOrUpdateReview = async (req, res) => {
     try {
@@ -57,6 +58,8 @@ const createOrUpdateReview = async (req, res) => {
             {
                 $set: {
                     userName: user.name,
+                    movieTitle:
+                        typeof movieTitle === "string" ? movieTitle.trim().slice(0, 200) : "",
                     rating: parsedRating,
                     comment: comment.trim(),
                 },
