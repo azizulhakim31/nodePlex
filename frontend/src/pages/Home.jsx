@@ -62,12 +62,12 @@ function Home() {
 
       <MovieSection
         title="Trending Now"
-        movies={trendingMovies}
+        movies={trendingMovies.slice(0, 6)}
       />
 
       <MovieSection
         title="Popular Movies"
-        movies={popularMovies}
+        movies={popularMovies.slice(0, 6)}
       />
     </>
   )

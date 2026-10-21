@@ -62,7 +62,7 @@ const Watchlist = () => {
   }
 
   return (
-    <div className="px-6 py-10">
+    <div className="px-6 py-10 page-container">
       <div className="mx-auto max-w-7xl">
 
         <div className="mb-8">
@@ -96,7 +96,7 @@ const Watchlist = () => {
               Save movies you want to watch later and keep your next movie night organized.
             </p>
 
-            <Link to="/movies" className="primary-button mt-5">
+            <Link to="/" className="primary-button mt-5">
               Explore Movies
             </Link>
           </div>
