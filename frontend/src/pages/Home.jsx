@@ -61,12 +61,15 @@ function Home() {
       <HeroSection />
 
       <MovieSection
+        id="trending"
         title="Trending Now"
+        subtitle="The movies everyone is talking about."
         movies={trendingMovies.slice(0, 6)}
       />
 
       <MovieSection
         title="Popular Movies"
+        subtitle="A few more favorites worth discovering."
         movies={popularMovies.slice(0, 6)}
       />
     </>

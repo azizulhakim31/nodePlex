@@ -13,11 +13,11 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="min-h-screen">
+      <div className="flex min-h-screen flex-col">
 
         <Navbar />
 
-        <main>
+        <main className="flex-1">
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/movies' element={<Movies />} />

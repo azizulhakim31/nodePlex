@@ -1,4 +1,6 @@
-function HeroSection() {
+import { Link } from 'react-router-dom'
+
+const HeroSection = () => {
     return (
         <section className="relative overflow-hidden bg-[#0b0b11]">
             <div
@@ -26,18 +28,23 @@ function HeroSection() {
                     </p>
 
                     <div className="mt-8 flex flex-wrap gap-4">
-                        <button className="rounded-lg bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-900/30 transition hover:-translate-y-0.5 hover:bg-red-500 active:translate-y-0">
+                        <Link
+                            to="/movies"
+                            className="rounded-lg bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-900/30 transition hover:-translate-y-0.5 hover:bg-red-500 active:translate-y-0"
+                        >
                             Explore Movies
-                        </button>
-
-                        <button className="rounded-lg border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-black">
-                            Watch Trailer
-                        </button>
+                        </Link>
+                        <Link
+                            to="/movies"
+                            className="rounded-lg border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-black"
+                        >
+                            Browse Movies
+                        </Link>
                     </div>
                 </div>
             </div>
         </section>
-    );
+    )
 }
 
 export default HeroSection

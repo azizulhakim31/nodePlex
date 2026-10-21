@@ -17,29 +17,32 @@ const MovieCard = ({ movie }) => {
       className="group block overflow-hidden rounded-lg bg-slate-900 transition duration-300 hover:-translate-y-2 hover:shadow-xl"
     >
 
-      {/* Poster */}
       <div className="relative aspect-2/3 overflow-hidden">
-        <img
-          src={posterURL}
-          alt={movie.title}
-          loading="lazy"
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-        />
+        {movie.poster_path ? (
+          <img
+            src={posterURL}
+            alt={movie.title}
+            loading="lazy"
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center px-4 text-center text-sm text-gray-400">
+            Poster unavailable
+          </div>
+        )}
 
-        {/* Rating */}
         <div className="absolute right-2 top-2 flex items-center gap-1 rounded bg-black/80 px-2 py-1 text-xs">
           <FaStar className="text-yellow-400" />
           <span>{movie.vote_average?.toFixed(1)}</span>
         </div>
       </div>
 
-      {/* Movie information */}
       <div className="p-3">
         <h3 className="truncate font-semibold transition group-hover:text-red-400">
           {movie.title}
         </h3>
 
-        <div className="mt-1 flex gap-1 justify-between text-sm text-gray-400">
+        <div className="mt-1 flex justify-between gap-1 text-sm text-gray-400">
           <span className="flex gap-1"><FaCalendarAlt /> {year}</span>
           <span>{movie.title}</span>
         </div>
