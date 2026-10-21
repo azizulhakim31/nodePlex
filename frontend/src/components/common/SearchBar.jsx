@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom"
 
 const SearchBar = () => {
@@ -28,11 +28,23 @@ const SearchBar = () => {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search movies..."
-                    className="w-full bg-transparent px-3 py-2 text-sm text-white outline-none placeholder:text-gray-500"
+                    className="min-w-0 w-full bg-transparent px-3 py-2 text-sm text-white outline-none placeholder:text-gray-500"
                 />
+
+                {query && (
+                    <button
+                        type="button"
+                        onClick={() => setQuery("")}
+                        aria-label="Clear search"
+                        className="px-2 text-gray-400 transition hover:text-white"
+                    >
+                        <FaTimes />
+                    </button>
+                )}
 
                 <button
                     type="submit"
+                    aria-label="Search"
                     className="px-4 text-gray-400 transition hover:text-white"
                 >
                     <FaSearch />

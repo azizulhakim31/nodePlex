@@ -49,8 +49,18 @@ const Search = () => {
             )}
 
             {error && (
-                <p className="mt-8 text-red-400">{error}</p>
+                <div className="empty-state mt-9">
+
+                    <h2 className="text-xl font-bold text-red-500">
+                        No movies found
+                    </h2>
+
+                    <p className="mt-2 max-w-sm text-sm text-gray-400">
+                        Try another movie title or check your spelling.
+                    </p>
+                </div>
             )}
+
 
             {!loading && !error && movies.length === 0 && (
                 <p className="mt-8 text-gray-400">No movies found</p>

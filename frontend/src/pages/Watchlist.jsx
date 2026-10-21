@@ -84,11 +84,11 @@ const Watchlist = () => {
         {movies.length === 0 ? (
           <div className="empty-state">
             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-500/10">
-              <span className="text-3xl"><ImFilm />
+              <span className="text-3xl text-gray-300"><ImFilm />
               </span>
             </div>
 
-            <h2 className="text-xl font-bold">
+            <h2 className="text-xl font-bold text-red-500">
               Your watchlist is empty
             </h2>
 
