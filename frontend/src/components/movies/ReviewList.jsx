@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
-import { FaStar } from 'react-icons/fa'
-import { getMovieReviews } from '../../services/reviewService'
+import { FaStar, FaTrash } from 'react-icons/fa'
+import { useAuth } from '../../context/AuthContext'
+import { deleteReview, getMovieReviews } from '../../services/reviewService'
 
-const ReviewList = ({ movieId, refreshKey }) => {
+const ReviewList = ({ movieId, refreshKey, onReviewDeleted }) => {
+    const { user } = useAuth()
     const [data, setData] = useState({
         reviews: [],
         count: 0,
@@ -11,6 +13,32 @@ const ReviewList = ({ movieId, refreshKey }) => {
 
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
+    const [deleteError, setDeleteError] = useState('')
+    const [deletingReviewId, setDeletingReviewId] = useState('')
+
+    const handleDelete = async (reviewId) => {
+        if (!window.confirm('Delete your review? This action cannot be undone.')) {
+            return
+        }
+
+        setDeletingReviewId(reviewId)
+        setDeleteError('')
+
+        try {
+            await deleteReview(movieId)
+
+            if (typeof onReviewDeleted === 'function') {
+                await onReviewDeleted()
+            }
+        } catch (error) {
+            setDeleteError(
+                error.response?.data?.message ||
+                'Unable to delete your review.'
+            )
+        } finally {
+            setDeletingReviewId('')
+        }
+    }
 
     useEffect(() => {
         let active = true
@@ -58,6 +86,10 @@ const ReviewList = ({ movieId, refreshKey }) => {
                 )}
             </div>
 
+            {deleteError && (
+                <p className="mb-4 text-sm text-red-400">{deleteError}</p>
+            )}
+
             {loading ? (
                 <p className="text-gray-400">Loading reviews...</p>
             ) : error ? (
@@ -91,6 +123,19 @@ const ReviewList = ({ movieId, refreshKey }) => {
                             <p className="mt-4 text-xs text-gray-500">
                                 {new Date(review.updatedAt).toLocaleDateString()}
                             </p>
+
+                            {user && String(review.user) === String(user.id) && (
+                                <button
+                                    type="button"
+                                    onClick={() => handleDelete(review._id)}
+                                    disabled={Boolean(deletingReviewId)}
+                                    aria-label="Delete your review"
+                                    className="mt-4 inline-flex items-center gap-2 text-sm text-red-400 transition hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    <FaTrash />
+                                    {deletingReviewId ? 'Deleting...' : 'Delete review'}
+                                </button>
+                            )}
                         </article>
                     ))}
                 </div>

@@ -255,6 +255,7 @@ const MovieDetails = () => {
                 <ReviewList
                     movieId={id}
                     refreshKey={reviewRefreshKey}
+                    onReviewDeleted={refreshReviews}
                 />
             </section>
 

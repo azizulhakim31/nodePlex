@@ -102,7 +102,7 @@ const getMovieReviews = async (req, res) => {
         }
 
         const reviews = await Review.find({ movieId })
-            .select('userName rating comment createdAt updatedAt')
+            .select('user userName rating comment createdAt updatedAt')
             .sort({ updatedAt: -1 })
 
         const averageRating = reviews.length
@@ -132,7 +132,45 @@ const getMovieReviews = async (req, res) => {
     }
 }
 
+const deleteReview = async (req, res) => {
+    try {
+        const movieId = Number(req.params.movieId)
+
+        if (!Number.isInteger(movieId) || movieId <= 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid movie ID',
+            })
+        }
+
+        const review = await Review.findOneAndDelete({
+            movieId,
+            user: req.userId,
+        })
+
+        if (!review) {
+            return res.status(404).json({
+                success: false,
+                message: 'Review not found',
+            })
+        }
+
+        res.json({
+            success: true,
+            message: 'Review deleted successfully',
+        })
+    } catch (error) {
+        console.error(error.message)
+
+        res.status(500).json({
+            success: false,
+            message: 'Failed to delete review',
+        })
+    }
+}
+
 module.exports = {
     createOrUpdateReview,
     getMovieReviews,
+    deleteReview,
 }

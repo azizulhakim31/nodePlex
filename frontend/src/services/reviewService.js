@@ -9,3 +9,8 @@ export const saveReview = async (reviewData) => {
     const response = await api.post("/reviews", reviewData)
     return response.data
 }
+
+export const deleteReview = async (movieId) => {
+    const response = await api.delete(`/reviews/${movieId}`)
+    return response.data
+}
