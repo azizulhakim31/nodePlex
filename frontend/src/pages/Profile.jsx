@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 import { getDashboard } from "../services/dashboardService"
+import { updateProfile as saveProfile } from "../services/userService"
 
-import { FaBookmark, FaCalendarAlt, FaComment, FaFilm, FaStar } from "react-icons/fa"
+import { FaBookmark, FaCalendarAlt, FaComment, FaFilm, FaPen, FaStar, FaTimes } from "react-icons/fa"
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Profile = () => {
+    const { updateUser } = useAuth()
     const [dashboard, setDashboard] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState("")
+    const [isEditing, setIsEditing] = useState(false)
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [saving, setSaving] = useState(false)
+    const [profileError, setProfileError] = useState("")
 
     useEffect(() => {
         let active = true
@@ -89,11 +97,51 @@ const Profile = () => {
         },
     ]
 
+    const openProfileEditor = () => {
+        setName(user.name)
+        setEmail(user.email)
+        setProfileError("")
+        setIsEditing(true)
+    }
+
+    const handleProfileSubmit = async (event) => {
+        event.preventDefault()
+        setProfileError("")
+        setSaving(true)
+
+        try {
+            const updatedUser = await saveProfile({ name, email })
+            setDashboard((currentDashboard) => ({
+                ...currentDashboard,
+                user: { ...currentDashboard.user, ...updatedUser }
+            }))
+            updateUser(updatedUser)
+            setIsEditing(false)
+        }
+        catch (error) {
+            setProfileError(
+                error.response?.data?.message || "Could not update your profile."
+            )
+        }
+        finally {
+            setSaving(false)
+        }
+    }
+
     return (
         <div className="min-h-screen px-6 py-10">
             <div className="mx-auto max-w-7xl">
 
                 <section className="relative overflow-hidden rounded-2xl border border-gray-800 bg-linear-to-br from-[#292020] via-[#181818] to-[#111] p-8 sm:p-10">
+                    <button
+                        type="button"
+                        onClick={openProfileEditor}
+                        aria-label="Edit profile"
+                        title="Edit profile"
+                        className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-gray-700 text-gray-300 transition hover:border-red-500 hover:text-white"
+                    >
+                        <FaPen aria-hidden="true" />
+                    </button>
                     <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
                         <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-red-600 text-3xl font-bold">
                             {user.name?.charAt(0).toUpperCase() || "U"}
@@ -115,6 +163,95 @@ const Profile = () => {
                         </div>
                     </div>
                 </section>
+
+                {isEditing && (
+                    <div
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-4 py-8"
+                        onMouseDown={(event) => {
+                            if (event.target === event.currentTarget && !saving) {
+                                setIsEditing(false)
+                            }
+                        }}
+                    >
+                        <section
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="edit-profile-title"
+                            className="w-full max-w-md rounded-2xl border border-gray-700 bg-[#181818] p-6 shadow-2xl"
+                        >
+                            <div className="mb-6 flex items-center justify-between">
+                                <h2 id="edit-profile-title" className="text-xl font-bold">
+                                    Edit profile
+                                </h2>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsEditing(false)}
+                                    disabled={saving}
+                                    aria-label="Close profile editor"
+                                    className="rounded p-2 text-gray-400 transition hover:text-white disabled:opacity-50"
+                                >
+                                    <FaTimes aria-hidden="true" />
+                                </button>
+                            </div>
+
+                            <form onSubmit={handleProfileSubmit} className="space-y-5">
+                                <div>
+                                    <label htmlFor="profile-name" className="mb-2 block text-sm font-medium text-gray-300">
+                                        Name
+                                    </label>
+                                    <input
+                                        id="profile-name"
+                                        type="text"
+                                        autoComplete="name"
+                                        required
+                                        value={name}
+                                        onChange={(event) => setName(event.target.value)}
+                                        className="w-full rounded-md border border-gray-700 bg-[#111] px-4 py-3 text-white outline-none focus:border-red-500"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="profile-email" className="mb-2 block text-sm font-medium text-gray-300">
+                                        Email
+                                    </label>
+                                    <input
+                                        id="profile-email"
+                                        type="email"
+                                        autoComplete="email"
+                                        required
+                                        value={email}
+                                        onChange={(event) => setEmail(event.target.value)}
+                                        className="w-full rounded-md border border-gray-700 bg-[#111] px-4 py-3 text-white outline-none focus:border-red-500"
+                                    />
+                                </div>
+
+                                {profileError && (
+                                    <p role="alert" className="text-sm text-red-400">
+                                        {profileError}
+                                    </p>
+                                )}
+
+                                <div className="flex justify-end gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsEditing(false)}
+                                        disabled={saving}
+                                        className="rounded-md border border-gray-700 px-4 py-2 text-gray-300 transition hover:border-gray-500 disabled:opacity-50"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={saving}
+                                        className="rounded-md bg-red-600 px-4 py-2 font-semibold transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+                                    >
+                                        {saving ? "Saving..." : "Save changes"}
+                                    </button>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                )}
 
                 <section className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
                     {stats.map((stat) => {
@@ -190,7 +327,7 @@ const Profile = () => {
                             {reviews.map((review) => (
                                 <article
                                     key={review._id}
-                                    className="rounded-xl border border-gray-800 bg-[#181818] p-5"
+                                    className="rounded-xl border border-gray-800 bg-[#181818] p-5 hover:scale-102 transition"
                                 >
                                     <div className="flex flex-wrap items-center justify-between gap-3">
                                         <Link

@@ -29,10 +29,16 @@ export const AuthProvider = ({ children }) => {
         setUser(null)
     }
 
+    const updateUser = (updatedUser) => {
+        const nextUser = { ...user, ...updatedUser }
+        localStorage.setItem("nodeplex_user", JSON.stringify(nextUser))
+        setUser(nextUser)
+    }
+
     return (
         <AuthContext.Provider
             value={{
-                user, token, signin, signout
+                user, token, signin, signout, updateUser
             }}
         >
             {children}

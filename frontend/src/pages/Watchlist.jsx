@@ -134,7 +134,7 @@ const Watchlist = () => {
                   </Link>
 
                   <div className="p-3">
-                    <h3 className="truncate font-semibold">
+                    <h3 className="truncate font-semibold group-hover:text-red-400">
                       {movie.title}
                     </h3>
 
