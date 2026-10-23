@@ -26,6 +26,13 @@ app.get("/", (req, res) => {
     })
 })
 
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "NodePlex API is running"
+    })
+})
+
 app.use("/api/movies", movieRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
@@ -35,6 +42,6 @@ app.use("/api/dashboard", dashboardRoutes)
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on http://localhost:${PORT}`);
 })
