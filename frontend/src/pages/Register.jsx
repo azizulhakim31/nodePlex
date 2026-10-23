@@ -56,7 +56,7 @@ const Register = () => {
                     </h1>
 
                     <p className="mt-2 text-gray-400">
-                        Join VibeVault today
+                        Join NodePlex today
                     </p>
                 </div>
 
