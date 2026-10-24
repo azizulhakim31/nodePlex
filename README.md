@@ -15,6 +15,10 @@ NodePlex is a movie discovery app for browsing and searching movies, reading and
 - Backend: Node.js, Express, and MongoDB
 - Movie data: The Movie Database (TMDB)
 
+## License
+
+This project is licensed under the MIT License. See [LICENSE](./LICENSE) for details.
+
 ## Getting started
 
 ### Requirements
