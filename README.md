@@ -2,6 +2,8 @@
 
 NodePlex is a movie discovery application where users can explore trending and popular movies, search for titles, read and write reviews, and manage a personal watchlist.
 
+Live demo: [node-plex.vercel.app](https://node-plex.vercel.app)
+
 ## Features
 
 - Browse popular and trending movies
